@@ -6,22 +6,92 @@ import UserLayout from './layout/UserLayout.vue'
 Vue.use(Router)
 
 export default new Router({
+  linkActiveClass:'active',  /*激活样式*/
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: `${process.env.BASE_URL}`,
   routes: [
     {
       path: '/',
       name: 'MainLayout',
       component: MainLayout,
-      meta: {
-        auth: true,
-        title: '主页'
-      },
       children: [
         {
           path: 'home',
           name: 'home',
           component: ()=>import('./views/Home/Home.vue'),
+          meta: {
+            auth: true,
+            title: '主页'
+          },
+          children:[
+            {
+              path: 'child1',
+              name: 'child1',
+              component: () => import('./views/Home/Pages/Child1/Child1.vue'),
+              meta: {
+                auth: true,
+                title: 'child1'
+              },
+            },
+            {
+              path: 'child2',
+              name: 'child2',
+              component: () => import('./views/Home/Pages/Child2/Child2.vue'),
+              meta: {
+                auth: true,
+                title: 'child2'
+              },
+            },
+            {
+              path: 'child3',
+              name: 'child3',
+              component: () => import('./views/Home/Pages/Child3/Child3.vue'),
+              meta: {
+                auth: true,
+                title: 'child3'
+              },
+            },
+            {
+              path: 'child4',
+              name: 'child4',
+              component: () => import('./views/Home/Pages/Child4/Child4.vue'),
+              meta: {
+                auth: true,
+                title: 'child4'
+              },
+            },
+            {
+              path: '/home',
+              redirect:'/home/child1'
+            }
+          ]
+        },
+        {
+          path: 'list',
+          name: 'list',
+          component: () => import('./views/List/List.vue'),
+          meta: {
+            auth: true,
+            title: '列表'
+          },
+        },
+        {
+          path: 'page1',
+          name:'page1',
+          component: ()=> import('./views/Page1/Page1.vue'),
+          meta: {
+            auth: true,
+            title: 'page1'
+          },
+        },
+        {
+          path: 'page2',
+          name:'page2',
+          component: ()=> import('./views/Page2/Page2.vue'),
+          meta: {
+            auth: true,
+            title: 'page2'
+          },
         }
       ]
     },
@@ -57,6 +127,14 @@ export default new Router({
     {
       path: '/',
       redirect: '/home'
+    },
+    {
+      path:'*',
+      component: ()=>import('./views/NotFound/NotFound'),  /*添加404页面*/
+      meta: {
+        auth: false,
+        title: '404'
+      },
     }
   ]
 })
