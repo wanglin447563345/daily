@@ -95,7 +95,7 @@
     }
   }
 </script>
-<style>
+<style scoped lang="scss">
   .register{
     height: 370px;
     width: 460px;

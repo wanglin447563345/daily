@@ -22,7 +22,7 @@
     }
   }
 </script>
-<style>
+<style scoped lang="scss">
   .home_layout{
     overflow-x: hidden;
     height: 100%;

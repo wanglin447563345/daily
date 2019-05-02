@@ -56,7 +56,7 @@
     }
   }
 </script>
-<style>
+<style scoped lang="scss">
   .login{
     height: 320px;
     width: 360px;

@@ -7,5 +7,5 @@
 <script>
 </script>
 
-<style scope lang="less">
+<style scoped lang="scss">
 </style>

@@ -46,7 +46,7 @@
   }
 </script>-->
 
-<style>
+<style scoped lang="scss">
   .list_col{
     margin:10px 0
   }
