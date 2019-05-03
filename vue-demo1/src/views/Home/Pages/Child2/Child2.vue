@@ -1,6 +1,8 @@
 <template>
   <div>
     <h1>父子组建通讯</h1>
+    <br>
+    <br>
     <Button type="primary" @click="getChildFun">这里是父组件</Button>
     <!--  @是v-on:形式的缩写   -->
     <!--

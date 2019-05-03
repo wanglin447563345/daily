@@ -1,5 +1,8 @@
 <template>
   <div class="child1">
+    <h1>Slot使用</h1>
+    <br>
+    <br>
     <div class="flex">
       <Input v-model="inputValue"/><Button type="primary" @click="add">添加</Button>
     </div>

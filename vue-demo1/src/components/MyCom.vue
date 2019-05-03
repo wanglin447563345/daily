@@ -45,7 +45,6 @@
         this.$emit('parentFun',{a:'我是子组件传过来的参数',b:'haha'})
       },
 
-
       childFun(params){
         console.log('--我是子组件里定义的方法--')
         console.log(params)
