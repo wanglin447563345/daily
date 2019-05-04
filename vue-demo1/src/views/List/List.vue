@@ -6,17 +6,53 @@
       {{item.name}}
     </Card>
     </Col>
+    <div>
+      {{otherGetter}}
+    </div>
   </Row>
 </template>
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapGetters, mapActions } from 'vuex'
   export default {
-    computed:mapState({
-      listData:state=>state.list.listData
-    }),
-    methods: mapActions('list', [
-      'getList'
-    ]),
+    computed:{
+
+//      listData(){
+//        return this.$store.getters.getterData
+//      }
+/*这里注意，不管开不开启命名空间都要加list*/
+      /*不启用命名空间*/
+      listData(){
+        return this.$store.state.list.listData
+      },
+//      ...mapGetters([
+//        'otherGetter'
+//      ]),
+
+      /*启用命名空间*/
+//      ...mapState('list',[
+//        'listData'
+//      ]),
+      ...mapGetters('list',[
+        'otherGetter'
+      ])
+
+    },
+    methods: {
+      /*不启用命名空间*/
+//      getList(){
+//        this.$store.dispatch('getList')
+//      }
+//      ...mapActions([
+//        'getList'
+//        ])
+      /*启用命名空间*/
+//      getList(){
+//        this.$store.dispatch('list/getList')
+//      }
+      ...mapActions('list', [
+        'getList'
+        ])
+    },
     created () {
       this.getList()
     }

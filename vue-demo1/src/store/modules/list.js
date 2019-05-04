@@ -6,7 +6,19 @@ const state = {
   listData:[]
 }
 
-const getters = {}
+const getters = {
+  getterData(state,b,a){/*第一个参数获取的是局部局部状态，第三个参数获取的根节点的状态*/
+    return state.listData.map(item=>{
+      return {
+        id:item.id,
+        name:`${item.name}--getter`
+      }
+    })
+  },
+  otherGetter(state,getters,a){
+    return state.listData.length+getters.getterData.length
+  }
+}
 
 
 // actions
