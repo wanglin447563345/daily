@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding: 0 30px">
     <h1>mutation  VS  action</h1>
     <br>
     <br>

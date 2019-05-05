@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding: 0 30px">
     <h1>父子组建通讯</h1>
     <br>
     <br>
@@ -16,11 +16,54 @@
     <!--<my-com @parentFun="fun"  ref="my_com" parentProps="1"></my-com>-->
     <!--<my-com @parentFun="fun"  ref="my_com" :parentProps="1"></my-com>-->
     <my-com @parentFun="fun"  ref="my_com" :parentProps="a"></my-com>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <p>----------分割线-----------</p>
+    <h2>组建里的data方法return出来的对象两种写法，产生不同的效果</h2>
+    <h3>第一种：
+      <br>
+      const data = {
+         count:0
+      };
+
+      export default{
+         data(){
+           return data
+          }
+      }
+
+    </h3>
+    <data-is-object></data-is-object>
+    <data-is-object></data-is-object>
+    <data-is-object></data-is-object>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3>第二种：
+      <br>
+      export default{
+      data(){
+      return {
+      count:0
+      }
+      }
+      }
+
+    </h3>
+    <data-is-fn></data-is-fn>
+    <data-is-fn></data-is-fn>
+    <data-is-fn></data-is-fn>
   </div>
 </template>
 
 <script>
   import MyCom from '../../../../components/MyCom.vue'
+  import DataIsObject from '../../../../components/DataIsObject.vue'
+  import DataIsFn from '../../../../components/DataIsFn.vue'
   export default {
     data(){
       return {
@@ -28,7 +71,9 @@
       }
     },
     components:{
-      MyCom
+      MyCom,
+      DataIsObject,
+      DataIsFn
     },
     methods:{
       fun(params){
