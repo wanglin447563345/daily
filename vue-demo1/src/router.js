@@ -83,6 +83,19 @@ export default new Router({
             auth: true,
             title: 'page1'
           },
+          beforeEnter(to,from,next) {
+            /*
+          路由独享首位
+          */
+            console.log(to)
+            console.log(from)
+            console.log(next)
+            if(from.name==='list'){  /*page1页面将只能从list页面切换进入*/
+              next()
+            }else {
+              next(false)
+            }
+          }
         },
         {
           path: 'page2',
