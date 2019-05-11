@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>select</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <select v-model="select" style="width:80px" @change="changeSelect">
+        <option v-for="op in dataList" :value="op.id" >
+            {{op.name}}
+        </option>
+    </select>
+    <template v-if="articleList.length>0">
+        <ul>
+            <li v-for="article in articleList">
+                {{article.name}}
+            </li>
+        </ul>
+    </template>
+    <template v-else>
+        <div>没有该分类文章</div>
+    </template>
+</div>
+<script type="module">
+    import ajax from './ajax.js'
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            select: 0,
+            dataList: [],
+            articleList: []
+        },
+        mounted() {
+            this.getSelectList()
+            this.changeSelect()
+        },
+        methods: {
+            getSelectList () {
+                ajax('GET','https://www.fastmock.site/mock/bd0376f82855bb2cc8c20ede282b2ade/api/api/select/list').then(data => {
+                    this.select = JSON.parse(data).data[0].id;
+                    this.dataList = JSON.parse(data).data
+                })
+            },
+            changeSelect (v) {
+                ajax('POST','https://www.fastmock.site/mock/bd0376f82855bb2cc8c20ede282b2ade/api/api/article/list')
+                    .then(data => {
+                        if (this.select===0) {
+                            this.articleList = data.data
+                        } else {
+                            this.articleList = data.data.filter(item => item.type_id === this.select)
+                        }
+
+                    })
+            }
+        }
+    })
+</script>
+</body>
+</html>

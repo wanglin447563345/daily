@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js+promise封装ajax</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="msg">
+    <ul v-for="item in dataList" :key="item.id">
+        <li>{{item.name}}</li>
+    </ul>
+</div>
+<script type="module">
+    import ajax from './ajax.js'
+    let vm = new Vue({
+        el:'#app',
+        data: {
+            msg: '',
+            dataList: []
+        },
+        mounted() {
+            this.getData()
+
+        },
+        watch: {
+            msg(v) {
+                clearTimeout(this.timer);
+                this.timer = setTimeout(()=>{
+                    this.getData(v)
+                },500)
+            }
+        },
+        methods: {
+            getData (name) {
+                ajax('GET','https://www.fastmock.site/mock/bd0376f82855bb2cc8c20ede282b2ade/api/list').then(data => {
+                    if(name){
+                        this.dataList = JSON.parse(data).data.filter(item=>item.name.includes(name))
+                    } else {
+                        this.dataList = JSON.parse(data).data
+                    }
+                }).catch(err=>{
+                    console.log(err)
+                })
+            },
+
+        }
+    });
+</script>
+</body>
+</html>
