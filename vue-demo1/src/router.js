@@ -105,6 +105,15 @@ export default new Router({
             auth: true,
             title: 'page2'
           },
+        },
+        {
+          path: 'nextTick',
+          name:'nextTick',
+          component: ()=> import('./views/nextTick/nextTick.vue'),
+          meta: {
+            auth: true,
+            title: 'nextTick'
+          },
         }
       ]
     },

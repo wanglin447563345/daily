@@ -14,6 +14,9 @@
         <MenuItem name="4">
           <router-link to="/page2">页面二</router-link>
         </MenuItem>
+        <MenuItem name="4">
+          <router-link to="/nextTick">nextTick</router-link>
+        </MenuItem>
       </Menu>
       <div>
         <Button type="primary" @click="logOut">退出</Button>

@@ -45,7 +45,7 @@
 <script>
   export default {
     data(){
-      return{
+      return {
         a:1,
         b:2
       }

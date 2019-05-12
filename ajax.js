@@ -1,23 +1,27 @@
 export default function ajax (method,url,data) {
-    let xml;
+    let xhr;
     if (window.XMLHttpRequest) {
-        xml = new XMLHttpRequest()
+        xhr = new XMLHttpRequest()
     } else {
         /*
         * 兼容ie5、6
         * */
-        xml = new ActiveXObject()
+        xhr = new ActiveXObject()
     }
     return new Promise( (resolve,reject)=> {
-        xml.onreadystatechange = () =>{
-            if (xml.readyState===4) {
-                if(xml.status===200) {
-                    resolve(xml.response)
+        xhr.onreadystatechange = () =>{
+            if (xhr.readyState===4) {
+                if(xhr.status===200) {
+                    resolve(xhr.response)
                 } else {
-                    reject(xml.status)
+                    reject(xhr.status)
                 }
             }
         }
+        xhr.ontimeout = function(){
+            console.log('请求超时');
+        }
+        xhr.timeout = 1000;
         if(method.toUpperCase()=== "GET"){
             let arr = [];
             for(let key in data){
@@ -25,13 +29,13 @@ export default function ajax (method,url,data) {
             }
             let getData=arr.join("&");
 
-            xml.open("GET",url +"?"+getData,true);
-            xml.send(null);
+            xhr.open("GET",url +"?"+getData,true);
+            xhr.send(null);
         }else if(method.toUpperCase()=== "POST"){
-            xml.open("POST",url,true);
-            xml.responseType="json";
-            xml.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
-            xml.send(data);
+            xhr.open("POST",url,true);
+            xhr.responseType="json";
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+            xhr.send(data);
         }
     });
 }

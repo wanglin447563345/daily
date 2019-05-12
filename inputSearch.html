@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="app">
-    <input type="text" v-model="msg" @input="changeSearch">
+    <input type="text" v-model="msg">
     <ul v-for="item in dataList" :key="item.id">
         <li>{{item.name}}</li>
     </ul>
@@ -24,14 +24,14 @@
             this.getData()
 
         },
-//        watch: {
-//            msg(v) {
-//                clearTimeout(this.timer);
-//                this.timer = setTimeout(()=>{
-//                    this.getData(v)
-//                },500)
-//            }
-//        },
+        watch: {
+            msg(v) {
+                clearTimeout(this.timaaer);
+                this.timaaer = setTimeout(()=>{  // 4
+                    this.getData(v)
+                },700)
+            }
+        },
         methods: {
             getData (name) {
                 ajax('GET','https://www.fastmock.site/mock/bd0376f82855bb2cc8c20ede282b2ade/api/list').then(data => {
@@ -44,12 +44,12 @@
                     console.log(err)
                 })
             },
-            changeSearch () {    /*这里实现节流失败*/
-                clearTimeout(this.timer)
-                this.timer = setTimeout(() => {
-                    this.getData(this.msg)
-                },500)
-            }
+//            changeSearch () {    /*这里实现节流失败*/
+//                clearTimeout(this.timer)
+//                this.timer = setTimeout(() => {
+//                    this.getData(this.msg)
+//                },500)
+//            }
         }
     });
 </script>

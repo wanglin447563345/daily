@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-model的实现</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="age"> {{age}}
+    <br>
+    <br>
+    <br>
+    <input type="text" :value="name" @input = 'e => name = e.target.value'>
+    {{name}}
+
+</div>
+
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            age: 20,
+            name: 'wl',
+            sex: 'dasds'
+        }
+    })
+</script>
+</body>
+</html>
