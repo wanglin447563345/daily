@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>class绑定</title>
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<button @click='changeColor'>changeColor</button>
+		<button @click='changeFontSize'>changeFontSize</button>
+		<br>
+		<br>
+		<br>
+<!-- 		<div :class="{'success': isSuccess, 'big': isBig}">
+			文字改变
+		</div> -->
+<!-- 		<div :class="[{'success': isSuccess},{'big': isBig}]">
+			文字改变
+		</div> -->
+		<!-- <div :class="classObj">
+			文字改变
+		</div> -->
+
+		<div :class="[isSuccess ? 'success':'', isBig ? 'big' : '']">
+			文字改变
+		</div>
+
+	</div>
+
+	<script>
+	Vue.component('myDiv',{
+		data(){
+			msg: 'sddsds'
+		},
+		template: '<div class="">{{msg}}</div>'
+	})
+		const vm = new Vue({
+			el: '#app',
+			data: {
+				isSuccess: false,
+				isBig: false
+			},
+			computed: {
+				classObj() {
+					return {
+						success: this.isSuccess,
+						big: this.isBig
+					}
+				}
+			},
+			methods: {
+				changeColor(){
+					this.isSuccess = !this.isSuccess
+				},
+				changeFontSize(){
+					this.isBig = !this.isBig
+				}
+			},
+			components: [
+
+			]
+		}) 
+	</script>
+	<style>
+	.success {
+		color: green;
+	}
+	.big{
+		font-size: 20px
+	}
+	</style>
+	
+</body>
+</html>

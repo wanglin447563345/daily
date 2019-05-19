@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>改变子组件的props属性，同时更新父组件</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+{{console.log('render')}}
+<div id="app">
+   <button @click='change'>parent: {{result ? '开' : '关'}}</button>
+   <son :result="result" @on-result-change="onResultChange"></son>
+</div>
+
+</div>
+
+<script>
+   Vue.component("son", {
+    template: "<button @click='change'>child: {{myResult?'开':'关'}}</button>",
+    props: ["result"],
+    data: function () {
+        return {
+            myResult: this.result  //创建props属性result的副本--myResult
+        };
+    },
+    watch: {
+        result(val) {
+            this.myResult = val; //监听外部对props属性result的变更，并同步到组件内的data属性myResult中
+        },
+        myResult(val){
+        	console.log(val)
+            this.$emit("on-result-change",val);  //③组件内对myResult变更后向外部发送事件通知
+        }
+    },
+    methods: {
+        change() {
+            this.myResult = !this.myResult;
+        }
+    }
+});
+
+new Vue({
+    el: "#app",
+    data: {
+        result: true
+    },
+    methods: {
+        change() {
+            this.result = !this.result;
+        },
+        onResultChange(val){
+            this.result=val;  //接收子组件的数据，更新内部result数据
+        }
+    }
+});
+</script>
+</body>
+</html>

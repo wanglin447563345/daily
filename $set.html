@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$set</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+{{console.log('render')}}
+    <button @click="changeArr">changeArr</button>
+    <ul>
+    	<li v-for = 'i in arr'>{{i}}</li>
+    </ul>
+    <br>
+    <br>
+    <button @click="changeObj">changeArr</button>
+    <p>
+    	{{obj.name}}
+    	<br>
+    	{{obj.age||0}}
+    </p>
+<input v-model.lazy="msg" >
+{{msg}}
+<input v-model.number="num" >
+{{num}}
+
+</div>
+
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            arr: [1,2,3,5,6],
+            obj: {
+            	name: 'wl'
+            },
+            msg: 'ds',
+            num: 12
+        },
+        updated() {
+        	console.log('updated')
+        },
+        methods: {
+        	changeArr () {
+        		// 利用索引直接设置一个项时,不会触发组建更新,可以使用this.$set来解决
+        		// this.arr[1]=100
+                this.$set(this.arr,1,100)
+
+                //修改数组的长度时,不会触发组建更新,可以用splice解决，只能减少数组长度，增加不行
+                //this.arr.length = 2
+                // this.arr.splice(2)
+        	},
+        	changeObj () {
+        		// this.obj.age = 100
+        		this.$set(this.obj,'age',100)
+        	}
+        }
+    })
+</script>
+</body>
+</html>
