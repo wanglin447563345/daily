@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>递归——二叉树排序</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		function Tree () {
+
+			// 节点构造函数
+			const Node = function (value) {
+				this.value = value
+				this.right = null
+				this.left = null
+			}
+
+			// 插入节点方法
+			const insertNode = function (oldNode, newNode) {
+				if (oldNode.value < newNode.value) {  // 新节点大于老节点，则新节点放在老节点的右边
+					if (oldNode.right === null) { // 如果老节点的有边没有子节点，则该新节点直接放在子节点的右边
+						oldNode.right = newNode
+					} else { //如果老节点的右边已经有子节点，则采用递归的方式继续跟这个子节点比较
+						insertNode(oldNode.right, newNode)
+					}
+				} else {
+					if (oldNode.left ===null) {
+						oldNode.left = newNode
+					} else {
+						insertNode(oldNode.left, newNode)
+					}
+				}
+			}
+
+			let root = null
+			this.insert = function (value) {
+				const newNode = new Node(value) //实例化一个node节点
+				if(root === null){  //判断根节点
+					root = newNode
+				} else {
+					insertNode(root, newNode)
+				}
+			}
+		}
+
+		const arr = [1,2,4,2,23,4,5,621,21]
+		const tree = new Tree()
+		arr.forEach(i=>{
+			tree.insert(i)
+		})
+
+	</script>
+
+</body>
+</html>
